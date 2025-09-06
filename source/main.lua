@@ -1,17 +1,23 @@
+import "CoreLibs/sprites"
+
 local pd = playdate
 local gfx = pd.graphics
 
 -- Player
-local playerX = 40
-local playerY = 120
+local playerStartX = 40
+local playerStartY = 120
 local playerSpeed = 3
 local playerImage = gfx.image.new("images/rock")
+assert(playerImage, "Failed to load player image")
+local playerSprite = gfx.sprite.new(playerImage)
+playerSprite:setCollideRect(0, 0, playerSprite:getSize())
+playerSprite:moveTo(playerStartX, playerStartY)
+playerSprite:add()
 
 function pd.update()
-    gfx.clear()
     local crankPosition = pd.getCrankPosition()
     local crankRadians = math.rad(crankPosition)
     local verticalMovement = -math.cos(crankRadians) * playerSpeed
-    playerY += verticalMovement
-    playerImage:draw(playerX, playerY)
+    playerSprite:moveBy(0, verticalMovement)
+    gfx.sprite.update()
 end
