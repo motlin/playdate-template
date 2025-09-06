@@ -10,7 +10,8 @@ local playerSpeed = 3
 local playerImage = gfx.image.new("images/rock")
 assert(playerImage, "Failed to load player image")
 local playerSprite = gfx.sprite.new(playerImage)
-playerSprite:setCollideRect(0, 0, playerSprite:getSize())
+local width, height = playerSprite:getSize()
+playerSprite:setCollideRect(4, 4, width - 8, height - 8)
 playerSprite:moveTo(playerStartX, playerStartY)
 playerSprite:add()
 
