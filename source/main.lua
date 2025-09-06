@@ -21,7 +21,8 @@ local gameState = "stopped" -- Possible states: "stopped", "active"
 local score = 0
 
 -- Obstacle
-local obstacleSpeed = 5
+local initialObstacleSpeed = 5
+local obstacleSpeed = initialObstacleSpeed
 local obstacleImage = gfx.image.new("images/capybara")
 assert(obstacleImage, "Failed to load obstacle image")
 local obstacleSprite = gfx.sprite.new(obstacleImage)
@@ -39,6 +40,7 @@ function pd.update()
         if pd.buttonJustPressed(pd.kButtonA) then
             gameState = "active"
             score = 0
+            obstacleSpeed = initialObstacleSpeed
             playerSprite:moveTo(playerStartX, playerStartY)
             obstacleSprite:moveTo(450, math.random(40, 200))
         end
@@ -54,6 +56,7 @@ function pd.update()
         if obstacleSprite.x < -20 then
             obstacleSprite:moveTo(450, math.random(40, 200))
             score += 1
+            obstacleSpeed += 0.2
         end
 
         -- Keep player within screen bounds
