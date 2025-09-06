@@ -25,6 +25,7 @@ local obstacleImage = gfx.image.new("images/capybara")
 assert(obstacleImage, "Failed to load obstacle image")
 local obstacleSprite = gfx.sprite.new(obstacleImage)
 obstacleSprite:setCollideRect(0, 0, obstacleSprite:getSize())
+obstacleSprite:setImageFlip(gfx.kImageFlippedX)
 obstacleSprite:moveTo(450, 240)
 obstacleSprite:add()
 
