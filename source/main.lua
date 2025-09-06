@@ -10,10 +10,8 @@ local playerImage = gfx.image.new("images/rock")
 function pd.update()
     gfx.clear()
     local crankPosition = pd.getCrankPosition()
-    if crankPosition <= 90 or crankPosition >= 270 then
-        playerY -= playerSpeed
-    else
-        playerY += playerSpeed
-    end
+    local crankRadians = math.rad(crankPosition)
+    local verticalMovement = -math.cos(crankRadians) * playerSpeed
+    playerY += verticalMovement
     playerImage:draw(playerX, playerY)
 end
