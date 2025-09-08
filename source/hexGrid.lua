@@ -1,7 +1,7 @@
 -- 🎯 Hexagonal Grid System
 -- Manages the hexagonal game board using axial coordinates
 
-local constants = import "constants"
+local constants = require "constants"
 
 local HexGrid = {}
 HexGrid.__index = HexGrid

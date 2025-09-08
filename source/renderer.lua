@@ -4,7 +4,7 @@
 local pd = playdate
 local gfx = pd.graphics
 
-local constants = import "constants"
+local constants = require "constants"
 
 local Renderer = {}
 
