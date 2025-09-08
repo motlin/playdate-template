@@ -11,10 +11,10 @@ local pd = playdate
 local gfx = pd.graphics
 
 -- Game modules
-local constants = import "constants"
-local HexGrid = import "hexGrid"
-local renderer = import "renderer"
-local Piece = import "piece"
+local constants = require "constants"
+local HexGrid = require "hexGrid"
+local renderer = require "renderer"
+local Piece = require "piece"
 -- local gameState = import "gameState"
 -- local input = import "input"
 
