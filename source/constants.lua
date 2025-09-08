@@ -52,4 +52,5 @@ constants.FLIP_ANIMATION_DURATION = 200  -- Milliseconds for hex flip animation
 constants.PIECE_PLACE_ANIMATION_DURATION = 150  -- Milliseconds for piece placement
 constants.VICTORY_ANIMATION_DURATION = 1000  -- Milliseconds for victory celebration
 
-return constants
+-- Set as global for Playdate SDK
+_G.constants = constants

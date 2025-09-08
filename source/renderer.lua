@@ -4,7 +4,7 @@
 local pd = playdate
 local gfx = pd.graphics
 
-local constants = require "constants"
+import "constants"
 
 local Renderer = {}
 
@@ -200,4 +200,5 @@ function Renderer.drawVictoryEffect(progress)
     end
 end
 
-return Renderer
+-- Set as global for Playdate SDK
+_G.renderer = Renderer
