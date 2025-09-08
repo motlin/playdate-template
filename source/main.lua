@@ -10,8 +10,8 @@ import "CoreLibs/animation"
 local pd = playdate
 local gfx = pd.graphics
 
--- Game modules (to be implemented)
--- local constants = import "constants"
+-- Game modules
+local constants = import "constants"
 -- local hexGrid = import "hexGrid"
 -- local renderer = import "renderer"
 -- local piece = import "piece"
@@ -25,19 +25,19 @@ local score = 0
 local moveCount = 0
 local gameMode = "playing" -- playing, paused, gameover
 
--- 🖼️ Screen constants
-local SCREEN_WIDTH = 400
-local SCREEN_HEIGHT = 240
-local CENTER_X = SCREEN_WIDTH / 2
-local CENTER_Y = SCREEN_HEIGHT / 2
+-- 🖼️ Screen constants from configuration
+local SCREEN_WIDTH = constants.SCREEN_WIDTH
+local SCREEN_HEIGHT = constants.SCREEN_HEIGHT
+local CENTER_X = constants.GRID_CENTER_X
+local CENTER_Y = constants.GRID_CENTER_Y
 
 -- 🔄 Initialize game
 function initGame()
     -- Set up display
-    gfx.setBackgroundColor(gfx.kColorWhite)
+    gfx.setBackgroundColor(constants.BACKGROUND_COLOR)
     
     -- Initialize game systems
-    -- grid = hexGrid.new(5) -- radius 5 for testing
+    -- grid = hexGrid.new(constants.GRID_RADIUS)
     -- currentPiece = piece.generateRandom()
     
     score = 0
@@ -153,7 +153,7 @@ function handleInput()
         local crankChange = pd.getCrankChange()
         if math.abs(crankChange) > 0 then
             -- Rotation logic
-            -- local rotationSteps = math.floor(crankChange / 60)
+            -- local rotationSteps = math.floor(crankChange / constants.CRANK_DEGREES_PER_ROTATION)
             -- if rotationSteps ~= 0 and currentPiece then
             --     piece.rotate(currentPiece, rotationSteps)
             -- end
