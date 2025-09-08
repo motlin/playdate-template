@@ -12,15 +12,15 @@ local gfx = pd.graphics
 
 -- Game modules
 local constants = import "constants"
--- local hexGrid = import "hexGrid"
--- local renderer = import "renderer"
--- local piece = import "piece"
+local HexGrid = import "hexGrid"
+local renderer = import "renderer"
+local Piece = import "piece"
 -- local gameState = import "gameState"
 -- local input = import "input"
 
 -- 🎯 Game state variables
-local grid = nil -- luacheck: ignore
-local currentPiece = nil -- luacheck: ignore
+local grid = nil
+local currentPiece = nil
 local score = 0
 local moveCount = 0
 local gameMode = "playing" -- playing, paused, gameover
@@ -37,8 +37,8 @@ function initGame()
     gfx.setBackgroundColor(constants.BACKGROUND_COLOR)
 
     -- Initialize game systems
-    -- grid = hexGrid.new(constants.GRID_RADIUS)
-    -- currentPiece = piece.generateRandom()
+    grid = HexGrid:new(constants.GRID_RADIUS)
+    currentPiece = Piece.createTestPiece()
 
     score = 0
     moveCount = 0
@@ -54,19 +54,13 @@ function draw()
     -- Draw game elements
     if gameMode == "playing" then
         -- Grid rendering
-        -- renderer.drawGrid(grid, CENTER_X, CENTER_Y)
+        renderer.drawGrid(grid)
 
         -- Current piece rendering
-        -- if currentPiece then
-        --     renderer.drawPiece(currentPiece, CENTER_X, CENTER_Y)
-        -- end
+        if currentPiece then renderer.drawPiece(currentPiece, grid, currentPiece.centerQ, currentPiece.centerR) end
 
         -- UI elements
         drawUI()
-
-        -- Temporary placeholder text
-        gfx.drawTextAligned("Hex Flip", CENTER_X, 20, kTextAlignment.center)
-        gfx.drawTextAligned("Grid rendering coming soon", CENTER_X, CENTER_Y, kTextAlignment.center)
     elseif gameMode == "paused" then
         drawPauseMenu()
     elseif gameMode == "gameover" then
@@ -76,15 +70,8 @@ end
 
 -- 📊 Draw UI elements
 function drawUI()
-    -- Score display
-    gfx.drawText("Score: " .. score, 10, 10)
-
-    -- Move counter
-    gfx.drawText("Moves: " .. moveCount, 10, 25)
-
-    -- Crank indicator (temporary)
     local crankPos = pd.getCrankPosition()
-    gfx.drawText("Crank: " .. math.floor(crankPos) .. "°", SCREEN_WIDTH - 80, 10)
+    renderer.drawUI(score, moveCount, crankPos)
 end
 
 -- ⏸️ Draw pause menu
@@ -150,13 +137,11 @@ function handleInput()
 
     -- Crank for piece rotation
     if gameMode == "playing" then
-        local crankChange = pd.getCrankChange()
-        if math.abs(crankChange) > 0 then
-            -- Rotation logic
-            -- local rotationSteps = math.floor(crankChange / constants.CRANK_DEGREES_PER_ROTATION)
-            -- if rotationSteps ~= 0 and currentPiece then
-            --     piece.rotate(currentPiece, rotationSteps)
-            -- end
+        local crankPosition = pd.getCrankPosition()
+        if currentPiece then
+            -- Map crank position (0-360) to rotation steps (0-5)
+            local targetRotation = math.floor(crankPosition / 60) % 6
+            currentPiece:setRotation(targetRotation)
         end
     end
 end
