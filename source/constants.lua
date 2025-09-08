@@ -4,12 +4,12 @@
 local constants = {}
 
 -- 📐 Hexagon dimensions
-constants.HEX_SIZE = 20  -- Radius of each hexagon in pixels
+constants.HEX_SIZE = 12  -- Radius of each hexagon in pixels
 constants.HEX_WIDTH = constants.HEX_SIZE * 2  -- Width of hexagon
 constants.HEX_HEIGHT = math.sqrt(3) * constants.HEX_SIZE  -- Height for flat-top hexagon
 
 -- 🎯 Grid configuration
-constants.GRID_RADIUS = 5  -- Number of hexagons from center to edge (5 for testing)
+constants.GRID_RADIUS = 4  -- Number of hexagons from center to edge (4 for testing)
 constants.GRID_CENTER_X = 200  -- Center of grid on screen
 constants.GRID_CENTER_Y = 120  -- Center of grid on screen
 

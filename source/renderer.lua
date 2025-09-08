@@ -23,17 +23,14 @@ function Renderer.drawHexagon(x, y, radius, filled)
     
     -- Draw the hexagon
     if filled then
-        -- Create a polygon for filled hexagon
-        local polygon = gfx.polygon.new(
-            vertices[1].x, vertices[1].y,
-            vertices[2].x, vertices[2].y,
-            vertices[3].x, vertices[3].y,
-            vertices[4].x, vertices[4].y,
-            vertices[5].x, vertices[5].y,
-            vertices[6].x, vertices[6].y
-        )
+        -- Create points array for filled hexagon
+        local points = {}
+        for i = 1, 6 do
+            table.insert(points, vertices[i].x)
+            table.insert(points, vertices[i].y)
+        end
         gfx.setColor(constants.PIECE_COLOR)
-        gfx.fillPolygon(polygon)
+        gfx.fillPolygon(table.unpack(points))
     else
         -- Draw outline using line segments
         gfx.setLineWidth(constants.HEX_LINE_WIDTH)
