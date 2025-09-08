@@ -223,4 +223,5 @@ function Piece:getSize()
     return maxQ - minQ + 1, maxR - minR + 1
 end
 
-return Piece
+-- Set as global for Playdate SDK
+_G.Piece = Piece
