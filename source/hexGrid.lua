@@ -1,7 +1,7 @@
 -- 🎯 Hexagonal Grid System
 -- Manages the hexagonal game board using axial coordinates
 
-local constants = require "constants"
+import "constants"
 
 local HexGrid = {}
 HexGrid.__index = HexGrid
@@ -218,4 +218,5 @@ function HexGrid:reset()
     end
 end
 
-return HexGrid
+-- Set as global for Playdate SDK
+_G.HexGrid = HexGrid
