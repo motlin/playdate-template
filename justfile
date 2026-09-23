@@ -1,4 +1,4 @@
-set dotenv-load := true
+set dotenv-load
 set dotenv-filename := ".envrc"
 
 project_name := env_var_or_default("PROJECT_NAME", "DEFAULT_TITLE")
@@ -12,12 +12,16 @@ default:
 
 # 🔨 Build the Playdate project
 build:
-    pdc "{{source_dir}}" "{{pdx_file}}"
+    pdc "{{ source_dir }}" "{{ pdx_file }}"
 
 # 🎮 Run the Playdate Simulator
 run: build
-    open -a "Playdate Simulator" "{{pdx_file}}"
+    open -a "Playdate Simulator" "{{ pdx_file }}"
 
 # 🧹 Clean build artifacts
 clean:
-    rm -rf "{{output_dir}}"
+    rm -rf "{{ output_dir }}"
+
+# pre-commit run just-fmt --all-files
+format:
+    pre-commit run just-fmt --all-files
