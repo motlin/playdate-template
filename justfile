@@ -1,6 +1,3 @@
-set dotenv-load
-set dotenv-filename := ".envrc"
-
 project_name := env_var_or_default("PROJECT_NAME", "DEFAULT_TITLE")
 source_dir := "source"
 output_dir := "builds"
