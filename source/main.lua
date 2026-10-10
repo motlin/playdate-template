@@ -35,32 +35,30 @@ local CENTER_Y = constants.GRID_CENTER_Y
 function initGame()
     -- Set up display
     gfx.setBackgroundColor(constants.BACKGROUND_COLOR)
-    
+
     -- Initialize game systems
     grid = HexGrid:new(constants.GRID_RADIUS)
     currentPiece = Piece.createTestPiece()
-    
+
     score = 0
     moveCount = 0
     gameMode = "playing"
-    
+
     print("🎮 Hex Flip initialized")
 end
 
 -- 🎨 Draw function
 function draw()
     gfx.clear()
-    
+
     -- Draw game elements
     if gameMode == "playing" then
         -- Grid rendering
         renderer.drawGrid(grid)
-        
+
         -- Current piece rendering
-        if currentPiece then
-            renderer.drawPiece(currentPiece, grid, currentPiece.centerQ, currentPiece.centerR)
-        end
-        
+        if currentPiece then renderer.drawPiece(currentPiece, grid, currentPiece.centerQ, currentPiece.centerR) end
+
         -- UI elements
         drawUI()
     elseif gameMode == "paused" then
@@ -106,14 +104,14 @@ function handleInput()
             initGame()
         end
     end
-    
+
     -- B button - cancel/back
     if pd.buttonJustPressed(pd.kButtonB) then
         if gameMode == "playing" then
             -- Cancel current action or undo
         end
     end
-    
+
     -- Menu button - pause
     if pd.buttonJustPressed(pd.kButtonMenu) then
         if gameMode == "playing" then
@@ -122,7 +120,7 @@ function handleInput()
             gameMode = "playing"
         end
     end
-    
+
     -- D-pad for cursor movement
     if gameMode == "playing" then
         -- Cursor movement logic
@@ -136,7 +134,7 @@ function handleInput()
         --     input.moveCursor(1, 0)
         -- end
     end
-    
+
     -- Crank for piece rotation
     if gameMode == "playing" then
         local crankPosition = pd.getCrankPosition()
@@ -152,31 +150,29 @@ end
 function pd.update()
     -- Handle input
     handleInput()
-    
+
     -- Update game logic
     if gameMode == "playing" then
         -- Update animations
         -- animation.update()
-        
+
         -- Check win/lose conditions
         -- if hexGrid.isClear(grid) then
         --     gameMode = "gameover"
         -- end
     end
-    
+
     -- Update timers
     pd.timer.updateTimers()
-    
+
     -- Draw everything
     draw()
-    
+
     -- Update sprites (if using sprite system)
     gfx.sprite.update()
-    
+
     -- FPS counter (debug)
-    if pd.isSimulator then
-        pd.drawFPS(SCREEN_WIDTH - 20, SCREEN_HEIGHT - 15)
-    end
+    if pd.isSimulator then pd.drawFPS(SCREEN_WIDTH - 20, SCREEN_HEIGHT - 15) end
 end
 
 -- 🚀 Start the game
