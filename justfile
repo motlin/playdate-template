@@ -1,14 +1,30 @@
+import ".just/console.just"
+import ".just/git.just"
+import ".just/git-test.just"
+
 project_name := env_var_or_default("PROJECT_NAME", "DEFAULT_TITLE")
 source_dir := "source"
 output_dir := "builds"
 pdx_file := output_dir / project_name + ".pdx"
+luarocks_bin := env_var("HOME") / ".luarocks/bin"
 
 # 📋 List all recipes (default)
 default:
     @just --list --unsorted
 
+# `mise install`
+mise:
+    mise install --quiet
+    mise current
+
+# 🧰 Install busted and luacheck into ~/.luarocks
+lua-tools:
+    luarocks install --local busted 2.3.0-1
+    luarocks install --local luacheck 1.2.0-1
+
 # 🔨 Build the Playdate project
 build:
+    mkdir -p "{{ output_dir }}"
     pdc "{{ source_dir }}" "{{ pdx_file }}"
 
 # 🎮 Run the Playdate Simulator
@@ -16,9 +32,36 @@ run: build
     open -a "Playdate Simulator" "{{ pdx_file }}"
 
 # 🧹 Clean build artifacts
-clean:
+clean: _clean-git
     rm -rf "{{ output_dir }}"
 
-# pre-commit run just-fmt --all-files
+# 🧪 Run host-side specs
+test:
+    "{{ luarocks_bin }}/busted"
+
+# 🔍 Lint Lua sources
+lint:
+    "{{ luarocks_bin }}/luacheck" .
+
+# `stylua source spec`
 format:
-    pre-commit run just-fmt --all-files
+    stylua source spec
+
+# `stylua --check source spec`
+format-check:
+    stylua --check source spec
+
+# ✅ Run pre-commit hooks, lint, specs, and build
+verify:
+    pre-commit run --all-files
+    just lint
+    just test
+    just build
+
+# Audit public singular recipe parameters for documented options
+audit-just-options:
+    python3 scripts/audit-just-options.py
+
+# Override this with a command called `woof` which notifies you in whatever ways you prefer.
+# My `woof` command uses `echo`, `say`, and sends a Pushover notification.
+echo_command := env('ECHO_COMMAND', "echo")
