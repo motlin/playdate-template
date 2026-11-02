@@ -5,7 +5,7 @@ argument-hint: [project-name|all]
 
 # Playdate Template Sync
 
-This template is the source of truth for Playdate/Lua project configurations. It extends ~/projects/project-template, which owns the foundational files (`.gitignore` base, `.pre-commit-config.yaml` base hooks, `vite.config.ts`, markdownlint, yamllint, `.github/` patterns, and the shared sync includes).
+This template is the source of truth for Playdate/Lua project configurations. It extends ~/projects/project-template, which owns the foundational files (`.gitignore` base, `.pre-commit-config.yaml` base hooks, `.oxfmtrc.json`, markdownlint, yamllint, `.github/` patterns, and the shared sync includes).
 
 Template path: !`pwd`
 
@@ -19,7 +19,7 @@ Read tool versions from `.mise/config.toml` in this template:
 
 - `lua` (5.4 line, matching the Playdate runtime)
 - `aqua:JohnnyMorganz/StyLua`
-- `just`, `pre-commit`, `node`, `npm:markdownlint-cli2`, `npm:vite-plus`
+- `just`, `pre-commit`, `node`, `npm:markdownlint-cli2`, `npm:oxfmt-next-line`
 
 ### Lua rocks
 
